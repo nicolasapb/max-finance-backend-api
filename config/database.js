@@ -34,21 +34,36 @@ INSERT INTO user (
 
 const PAYMENT_SCHEMA = 
 `
-CREATE TABLE IF NOT EXISTS photo (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    recipient VARCHAR(100) NOT NULL, 
-    due_date VARCHAR(10) NOT NULL,
-    amount VARCHAR(15) NOT NULL,
-    pay_date VARCHAR(10) NOT NULL,
-    pay_amount VARCHAR(15) NOT NULL,
-    auth VARCHAR(25) NOT NULL,
-    account VARCHAR(15) NOT NULL,
-    cnpj VARCHAR(18) NOT NULL,
-    type VARCHAR(1) NOT NULL,
-    paid INTEGER NOT NULL DEFAULT (0),
-    user_id INTEGER,
-    FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE 
+CREATE TABLE IF NOT EXISTS payment (
+    payment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    payment_recipient VARCHAR(100) NOT NULL, 
+    payment_due_date VARCHAR(10) NOT NULL,
+    payment_amount VARCHAR(15) NOT NULL,
+    payment_pay_date VARCHAR(10) NOT NULL,
+    payment_pay_amount VARCHAR(15) NOT NULL,
+    payment_auth VARCHAR(25) NOT NULL,
+    payment_account VARCHAR(15) NOT NULL,
+    payment_cnpj VARCHAR(18) NOT NULL,
+    payment_type VARCHAR(1) NOT NULL,
+    payment_paid INTEGER NOT NULL DEFAULT (0)
 )
+`;
+
+const INSERT_DEFAUL_PAYMENT_1 = 
+`
+INSERT INTO payment (
+    payment_recipient,
+    payment_due_date,
+    payment_amount,
+    payment_pay_date,
+    payment_pay_amount,
+    payment_auth,
+    payment_account,
+    payment_cnpj,
+    payment_type,
+    payment_paid    
+) SELECT 'MAXCASA XXVII EMP IMOB LTDA', '12/02/2019', '30000.00', '12/02/2019', '30000.00', 'MBB351FC703E985426DC491', '03500000207601', '13070428000152', '0', 1
+    WHERE NOT EXISTS (SELECT * FROM payment WHERE payment_id = '1')
 `;
 
 const SAVING_SCHEMA =
@@ -58,33 +73,29 @@ CREATE TABLE IF NOT EXISTS comment (
     type VARCHAR(4) NOT NULL,
     amount VARCHAR(15) NOT NULL,
     date VARCHAR(10) NOT NULL,
-    simulation INTEGER NOT NULL DEFAULT (0),
-    user_id INTEGER,
-    FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE 
+    simulation INTEGER NOT NULL DEFAULT (0)
 );
 `;
 
 const SIMULATION_SCHEMA = `
 CREATE TABLE IF NOT EXISTS like (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    composition VARCHAR(255) NOT NULL
-    total VARCHAR(15) NOT NULL
-    entry VARCHAR(15) NOT NULL
-    entry_pct VARCHAR(15) NOT NULL
-    funding VARCHAR(15) NOT NULL
-    funding_pct VARCHAR(15) NOT NULL
-    renovation VARCHAR(15) NOT NULL
-    installment VARCHAR(15) NOT NULL
+    composition VARCHAR(255) NOT NULL,
+    total VARCHAR(15) NOT NULL,
+    entry VARCHAR(15) NOT NULL,
+    entry_pct VARCHAR(15) NOT NULL,
+    funding VARCHAR(15) NOT NULL,
+    funding_pct VARCHAR(15) NOT NULL,
+    renovation VARCHAR(15) NOT NULL,
+    installment VARCHAR(15) NOT NULL,
     fund_fees INTEGER NOT NULL DEFAULT (0),
     compose_income INTEGER NOT NULL DEFAULT (0),
-    interest VARCHAR(15) NOT NULL
-    interest_am VARCHAR(15) NOT NULL
-    cet VARCHAR(15) NOT NULL
-    cesh VARCHAR(15) NOT NULL
-    term VARCHAR(15) NOT NULL
+    interest VARCHAR(15) NOT NULL,
+    interest_am VARCHAR(15) NOT NULL,
+    cet VARCHAR(15) NOT NULL,
+    cesh VARCHAR(15) NOT NULL,
+    term VARCHAR(15) NOT NULL,
     sim_date VARCHAR(10) NOT NULL
-    user_id INTEGER,
-    FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE 
 )
 `;
 
@@ -94,6 +105,7 @@ db.serialize(() => {
     db.run(INSERT_DEFAULT_USER_1);
     db.run(INSERT_DEFAULT_USER_2);
     db.run(PAYMENT_SCHEMA);        
+    db.run(INSERT_DEFAUL_PAYMENT_1);        
     db.run(SAVING_SCHEMA);     
     db.run(SIMULATION_SCHEMA);        
 

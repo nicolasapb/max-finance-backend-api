@@ -1,24 +1,12 @@
-// const PhotoDao = require('./photo-dao')
-//     , CommentDao = require('./comment-dao')
-//     , UserDao = require('./user-dao')
-//     , wrapAsync = require('./async-wrap')
-//     , auth = require('./auth');
-
-
-// module.exports = {
-//     PhotoDao, 
-//     CommentDao, 
-//     UserDao,
-//     wrapAsync,
-//     auth
-// };
 const UserDao = require('./user-dao')
+    , PaymentDao = require('./payment-dao')
     , wrapAsync = require('./async-wrap')
     , auth = require('./auth');
 
 
 module.exports = {
     UserDao,
+    PaymentDao,
     wrapAsync,
     auth
 };

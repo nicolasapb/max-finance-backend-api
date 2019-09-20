@@ -3,6 +3,7 @@
 //     , userAPI = require('./user');
 
 // module.exports = { commentAPI, photoAPI, userAPI };
-const userAPI = require('./user');
+const userAPI = require('./user')
+    , paymentAPI = require('./payment');
 
-module.exports = { userAPI };
+module.exports = { userAPI, paymentAPI };
