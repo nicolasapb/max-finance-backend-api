@@ -45,9 +45,9 @@ class SavingDao {
     return new Promise((resolve, reject) => {
       this._db.run(`
               INSERT INTO saving (
-                saving_type
-                saving_amount
-                saving_date
+                saving_type,
+                saving_amount,
+                saving_date,
                 saving_simulation
               ) values (?,?,?,?)
           `,

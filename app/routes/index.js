@@ -1,5 +1,6 @@
 const userRoutes = require('./user')
     , savingRoutes = require('./saving')
-    , paymentRoutes = require('./payment');
+    , paymentRoutes = require('./payment')
+    , simulationRoutes = require('./simulation');
 
-module.exports = { userRoutes, savingRoutes, paymentRoutes };
+module.exports = { userRoutes, savingRoutes, paymentRoutes, simulationRoutes };

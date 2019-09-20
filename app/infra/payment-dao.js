@@ -52,16 +52,16 @@ class PaymentDao {
       return new Promise((resolve, reject) => {
           this._db.run(`
               INSERT INTO payment (
-                payment_recipient
-                payment_due_date
-                payment_amount
-                payment_pay_date
-                payment_pay_amount
-                payment_auth
-                payment_account
-                payment_cnpj
-                payment_type
-                payment_paid
+                payment_recipient,
+                payment_due_date,
+                payment_amount,
+                payment_pay_date,
+                payment_pay_amount,
+                payment_auth,
+                payment_account,
+                payment_cnpj,
+                payment_type,
+                payment_paid,
               ) values (?,?,?,?,?,?,?,?,?,?)
           `,
               [

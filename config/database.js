@@ -88,26 +88,60 @@ INSERT INTO saving (
     WHERE NOT EXISTS (SELECT * FROM saving WHERE saving_id = '1')
 `;
 
+const INSERT_DEFAULT_SAVING_2 =
+`
+INSERT INTO saving (
+    saving_type,
+    saving_amount,
+    saving_date,
+    saving_simulation      
+) SELECT 'PP', '32000.00', '01/05/2020', 1
+    WHERE NOT EXISTS (SELECT * FROM saving WHERE saving_id = '2')
+`;
+
 const SIMULATION_SCHEMA = `
-CREATE TABLE IF NOT EXISTS like (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    composition VARCHAR(255) NOT NULL,
-    total VARCHAR(15) NOT NULL,
-    entry VARCHAR(15) NOT NULL,
-    entry_pct VARCHAR(15) NOT NULL,
-    funding VARCHAR(15) NOT NULL,
-    funding_pct VARCHAR(15) NOT NULL,
-    renovation VARCHAR(15) NOT NULL,
-    installment VARCHAR(15) NOT NULL,
-    fund_fees INTEGER NOT NULL DEFAULT (0),
-    compose_income INTEGER NOT NULL DEFAULT (0),
-    interest VARCHAR(15) NOT NULL,
-    interest_am VARCHAR(15) NOT NULL,
-    cet VARCHAR(15) NOT NULL,
-    cesh VARCHAR(15) NOT NULL,
-    term VARCHAR(15) NOT NULL,
-    sim_date VARCHAR(10) NOT NULL
+CREATE TABLE IF NOT EXISTS simulation (
+    simulation_id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    simulation_composition VARCHAR(255) NOT NULL,
+    simulation_total VARCHAR(15) NOT NULL,
+    simulation_entry VARCHAR(15) NOT NULL,
+    simulation_entry_pct VARCHAR(15) NOT NULL,
+    simulation_funding VARCHAR(15) NOT NULL,
+    simulation_funding_pct VARCHAR(15) NOT NULL,
+    simulation_renovation VARCHAR(15) NOT NULL,
+    simulation_installment VARCHAR(15) NOT NULL,
+    simulation_fund_fees INTEGER NOT NULL DEFAULT (0),
+    simulation_compose_income INTEGER NOT NULL DEFAULT (0),
+    simulation_interest VARCHAR(15) NOT NULL,
+    simulation_interest_am VARCHAR(15) NOT NULL,
+    simulation_cet VARCHAR(15) NOT NULL,
+    simulation_cesh VARCHAR(15) NOT NULL,
+    simulation_term VARCHAR(15) NOT NULL,
+    simulation_sim_date VARCHAR(10) NOT NULL
 )
+`;
+
+const INSERT_DEFAULT_SIMULATION_1 =
+`
+INSERT INTO simulation (
+    simulation_composition,
+    simulation_total,
+    simulation_entry,
+    simulation_entry_pct,
+    simulation_funding,
+    simulation_funding_pct,
+    simulation_renovation,
+    simulation_installment,
+    simulation_fund_fees,
+    simulation_compose_income,
+    simulation_interest,
+    simulation_interest_am,
+    simulation_cet,
+    simulation_cesh,
+    simulation_term,
+    simulation_sim_date   
+) SELECT 'FULL', '217689.00', '335689.00', '65.7700', '174692.00', '34.2300', '0', '1679.74', 0, 1, '7.9900', '0.6400', '8.6000', '2.4584', '35', '09/07/2019'
+    WHERE NOT EXISTS (SELECT * FROM simulation WHERE simulation_id = '1')
 `;
 
 db.serialize(() => {
@@ -119,7 +153,9 @@ db.serialize(() => {
     db.run(INSERT_DEFAULT_PAYMENT_1);        
     db.run(SAVING_SCHEMA);     
     db.run(INSERT_DEFAULT_SAVING_1);     
+    db.run(INSERT_DEFAULT_SAVING_2);     
     db.run(SIMULATION_SCHEMA);        
+    db.run(INSERT_DEFAULT_SIMULATION_1);        
 
     db.each("SELECT * FROM user", (err, user) => {
         console.log('Users');
