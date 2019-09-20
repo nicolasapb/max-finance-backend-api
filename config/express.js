@@ -3,7 +3,7 @@ const express = require('express')
     , bodyParser = require('body-parser')
     , cors = require('cors')
     , db = require('./database')
-    , { userRoutes, paymentRoutes } = require('../app/routes');
+    , { userRoutes, paymentRoutes, savingRoutes } = require('../app/routes');
 
 app.set('secret', 'your secret phrase here');
 
@@ -34,6 +34,7 @@ app.use((req, res, next) => {
 
 userRoutes(app);
 paymentRoutes(app);
+savingRoutes(app);
 
 app.use('*', (req, res) => {
     res.status(404).json({ message: `route ${req.originalUrl} does not exists!` });

@@ -89,7 +89,7 @@ class PaymentDao {
   update(id, payment) {
       return new Promise((resolve, reject) => {
           this._db.run(`
-              update payment set            
+              UPDATE payment SET            
                 payment_recipient  = ?       
                 payment_due_date   = ?       
                 payment_amount     = ?     
@@ -100,7 +100,7 @@ class PaymentDao {
                 payment_cnpj       = ?   
                 payment_type       = ?   
                 payment_paid       = ?
-                where payment_id = ?;   
+                WHERE payment_id = ?;   
           `,
               [
                 payment.recipient,
@@ -149,7 +149,7 @@ class PaymentDao {
 
   remove(id) {
       return new Promise((resolve, reject) => this._db.run(
-          `DELETE FROM payment where payment_id = ?`,
+          `DELETE FROM payment WHERE payment_id = ?`,
           [id],
           err => {
               if (err) {

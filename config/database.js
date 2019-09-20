@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS payment (
 )
 `;
 
-const INSERT_DEFAUL_PAYMENT_1 = 
+const INSERT_DEFAULT_PAYMENT_1 = 
 `
 INSERT INTO payment (
     payment_recipient,
@@ -68,13 +68,24 @@ INSERT INTO payment (
 
 const SAVING_SCHEMA =
 `
-CREATE TABLE IF NOT EXISTS comment (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    type VARCHAR(4) NOT NULL,
-    amount VARCHAR(15) NOT NULL,
-    date VARCHAR(10) NOT NULL,
-    simulation INTEGER NOT NULL DEFAULT (0)
+CREATE TABLE IF NOT EXISTS saving (
+    saving_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    saving_type VARCHAR(4) NOT NULL,
+    saving_amount VARCHAR(15) NOT NULL,
+    saving_date VARCHAR(10) NOT NULL,
+    saving_simulation INTEGER NOT NULL DEFAULT (0)
 );
+`;
+
+const INSERT_DEFAULT_SAVING_1 =
+`
+INSERT INTO saving (
+    saving_type,
+    saving_amount,
+    saving_date,
+    saving_simulation      
+) SELECT 'PP', '5208.54', '01/01/2019', 0
+    WHERE NOT EXISTS (SELECT * FROM saving WHERE saving_id = '1')
 `;
 
 const SIMULATION_SCHEMA = `
@@ -105,8 +116,9 @@ db.serialize(() => {
     db.run(INSERT_DEFAULT_USER_1);
     db.run(INSERT_DEFAULT_USER_2);
     db.run(PAYMENT_SCHEMA);        
-    db.run(INSERT_DEFAUL_PAYMENT_1);        
+    db.run(INSERT_DEFAULT_PAYMENT_1);        
     db.run(SAVING_SCHEMA);     
+    db.run(INSERT_DEFAULT_SAVING_1);     
     db.run(SIMULATION_SCHEMA);        
 
     db.each("SELECT * FROM user", (err, user) => {

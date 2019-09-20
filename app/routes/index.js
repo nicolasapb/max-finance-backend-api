@@ -1,8 +1,5 @@
-// const commentRoutes = require('./comment')
-//     ,photoRoutes = require('./photo')
-//     , userRoutes = require('./user');
-
 const userRoutes = require('./user')
+    , savingRoutes = require('./saving')
     , paymentRoutes = require('./payment');
 
-module.exports = { userRoutes, paymentRoutes };
+module.exports = { userRoutes, savingRoutes, paymentRoutes };

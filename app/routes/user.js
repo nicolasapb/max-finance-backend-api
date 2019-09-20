@@ -1,6 +1,5 @@
-const { userAPI } = require('../api'),
-    path = require('path'),
-    { wrapAsync } = require('../infra');
+const { userAPI } = require('../api')
+    , { wrapAsync } = require('../infra');
 
 module.exports = app => {
 

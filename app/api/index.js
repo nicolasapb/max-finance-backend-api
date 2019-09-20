@@ -1,9 +1,5 @@
-// const commentAPI = require('./comment')
-//     , photoAPI = require('./photo')
-//     , userAPI = require('./user');
-
-// module.exports = { commentAPI, photoAPI, userAPI };
 const userAPI = require('./user')
-    , paymentAPI = require('./payment');
+    , paymentAPI = require('./payment')
+    , savingAPI = require('./saving');
 
-module.exports = { userAPI, paymentAPI };
+module.exports = { userAPI, paymentAPI, savingAPI };
