@@ -32,58 +32,75 @@ INSERT INTO user (
 ) SELECT 'barbosa', 'barbosa@test.com', '123', 'Barbosa' WHERE NOT EXISTS (SELECT * FROM user WHERE user_name = 'barbosa')
 `;
 
-// const PHOTO_SCHEMA = 
-// `
-// CREATE TABLE IF NOT EXISTS photo (
-//     photo_id INTEGER PRIMARY KEY AUTOINCREMENT,
-//     photo_post_date TIMESTAMP NOT NULL, 
-//     photo_url TEXT NOT NULL, 
-//     photo_description TEXT DEFAULT ('') NOT NULL, 
-//     photo_allow_comments INTEGER NOT NULL DEFAULT (1), 
-//     photo_likes BIGINT NOT NULL DEFAULT (0),
-//     user_id INTEGER,
-//     FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE 
-// )
-// `;
+const PAYMENT_SCHEMA = 
+`
+CREATE TABLE IF NOT EXISTS photo (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    recipient VARCHAR(100) NOT NULL, 
+    due_date VARCHAR(10) NOT NULL,
+    amount VARCHAR(15) NOT NULL,
+    pay_date VARCHAR(10) NOT NULL,
+    pay_amount VARCHAR(15) NOT NULL,
+    auth VARCHAR(25) NOT NULL,
+    account VARCHAR(15) NOT NULL,
+    cnpj VARCHAR(18) NOT NULL,
+    type VARCHAR(1) NOT NULL,
+    paid INTEGER NOT NULL DEFAULT (0),
+    user_id INTEGER,
+    FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE 
+)
+`;
 
-// const COMMENT_SCHEMA =
-// `
-// CREATE TABLE IF NOT EXISTS comment (
-//     comment_id INTEGER   PRIMARY KEY AUTOINCREMENT,
-//     comment_date TIMESTAMP NOT NULL,
-//     comment_text TEXT  DEFAULT (''),
-//     photo_id INTEGER,
-//     user_id INTEGER,
-//     FOREIGN KEY (photo_id) REFERENCES photo (photo_id) ON DELETE CASCADE,
-//     FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE 
-// );
-// `;
+const SAVING_SCHEMA =
+`
+CREATE TABLE IF NOT EXISTS comment (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type VARCHAR(4) NOT NULL,
+    amount VARCHAR(15) NOT NULL,
+    date VARCHAR(10) NOT NULL,
+    simulation INTEGER NOT NULL DEFAULT (0),
+    user_id INTEGER,
+    FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE 
+);
+`;
 
-// const LIKE_SCHEMA = `
-// CREATE TABLE IF NOT EXISTS like (
-//     like_id INTEGER PRIMARY KEY AUTOINCREMENT, 
-//     photo_id INTEGER,
-//     user_id  INTEGER,
-//     like_date TIMESTAMP DEFAULT current_timestamp, 
-//     UNIQUE(user_id, photo_id ),
-//     FOREIGN KEY (photo_id) REFERENCES photo (photo_id) ON DELETE CASCADE,
-//     FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE
-// )
-// `;
+const SIMULATION_SCHEMA = `
+CREATE TABLE IF NOT EXISTS like (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    composition VARCHAR(255) NOT NULL
+    total VARCHAR(15) NOT NULL
+    entry VARCHAR(15) NOT NULL
+    entry_pct VARCHAR(15) NOT NULL
+    funding VARCHAR(15) NOT NULL
+    funding_pct VARCHAR(15) NOT NULL
+    renovation VARCHAR(15) NOT NULL
+    installment VARCHAR(15) NOT NULL
+    fund_fees INTEGER NOT NULL DEFAULT (0),
+    compose_income INTEGER NOT NULL DEFAULT (0),
+    interest VARCHAR(15) NOT NULL
+    interest_am VARCHAR(15) NOT NULL
+    cet VARCHAR(15) NOT NULL
+    cesh VARCHAR(15) NOT NULL
+    term VARCHAR(15) NOT NULL
+    sim_date VARCHAR(10) NOT NULL
+    user_id INTEGER,
+    FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE 
+)
+`;
 
 db.serialize(() => {
     db.run("PRAGMA foreign_keys=ON");
     db.run(USER_SCHEMA);
     db.run(INSERT_DEFAULT_USER_1);
     db.run(INSERT_DEFAULT_USER_2);
-    // db.run(PHOTO_SCHEMA);        
-    // db.run(COMMENT_SCHEMA);     
-    // db.run(LIKE_SCHEMA);        
+    db.run(PAYMENT_SCHEMA);        
+    db.run(SAVING_SCHEMA);     
+    db.run(SIMULATION_SCHEMA);        
 
-//     db.each("SELECT * FROM user", (err, user) => {
-//         console.log('Users');
-//         console.log(user);
-//     });
+    db.each("SELECT * FROM user", (err, user) => {
+        console.log('Users');
+        console.log(user);
+    });
 });
 
 process.on('SIGINT', () =>

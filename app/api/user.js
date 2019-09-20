@@ -4,7 +4,7 @@ const { UserDao } = require('../infra');
 const api = {}
 
 api.login = async (req, res) => {
-    const { userName, password } = req.body;
+    const { userName, password } = req.body; 
     console.log('####################################');
     const user = await new UserDao(req.db).findByNameAndPassword(userName, password);
     console.log(user);
