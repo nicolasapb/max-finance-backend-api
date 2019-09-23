@@ -107,21 +107,21 @@ class SimulationDao {
     return new Promise((resolve, reject) => {
       this._db.run(`
               UPDATE simulation SET            
-                simulation_composition = ?  
-                simulation_total = ?
-                simulation_entry = ?
-                simulation_entry_pct = ?
-                simulation_funding = ?
-                simulation_funding_pct = ?
-                simulation_renovation = ?
-                simulation_installment = ?
-                simulation_fund_fees = ?
-                simulation_compose_income = ?
-                simulation_interest = ?
-                simulation_interest_am = ?
-                simulation_cet = ?
-                simulation_cesh = ?
-                simulation_term = ?
+                simulation_composition = ?,  
+                simulation_total = ?,
+                simulation_entry = ?,
+                simulation_entry_pct = ?,
+                simulation_funding = ?,
+                simulation_funding_pct = ?,
+                simulation_renovation = ?,
+                simulation_installment = ?,
+                simulation_fund_fees = ?,
+                simulation_compose_income = ?,
+                simulation_interest = ?,
+                simulation_interest_am = ?,
+                simulation_cet = ?,
+                simulation_cesh = ?,
+                simulation_term = ?,
                 simulation_sim_date = ?    
                 WHERE simulation_id = ?;   
           `,

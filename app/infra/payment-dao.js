@@ -61,7 +61,7 @@ class PaymentDao {
                 payment_account,
                 payment_cnpj,
                 payment_type,
-                payment_paid,
+                payment_paid
               ) values (?,?,?,?,?,?,?,?,?,?)
           `,
               [
@@ -89,16 +89,16 @@ class PaymentDao {
   update(id, payment) {
       return new Promise((resolve, reject) => {
           this._db.run(`
-              UPDATE payment SET            
-                payment_recipient  = ?       
-                payment_due_date   = ?       
-                payment_amount     = ?     
-                payment_pay_date   = ?       
-                payment_pay_amount = ?         
-                payment_auth       = ?   
-                payment_account    = ?     
-                payment_cnpj       = ?   
-                payment_type       = ?   
+              UPDATE payment SET          
+                payment_recipient  = ?,      
+                payment_due_date   = ?,      
+                payment_amount     = ?,   
+                payment_pay_date   = ?,       
+                payment_pay_amount = ?,         
+                payment_auth       = ?,   
+                payment_account    = ?,     
+                payment_cnpj       = ?,   
+                payment_type       = ?,   
                 payment_paid       = ?
                 WHERE payment_id = ?;   
           `,

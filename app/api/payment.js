@@ -23,7 +23,7 @@ api.update = async (req, res) => {
   console.log('####################################');
   console.log('Received JSON data', req.body);
 
-  const { payment } = req.body;
+  const payment  = req.body;
   const dao = new PaymentDao(req.db);
   const paymentDB = await dao.findById(payment.id);
   if(!paymentDB) {
@@ -57,8 +57,8 @@ api.remove = async (req, res) => {
         return res.status(404).json({ message });
     }
 
-    await dao.remove(paymentId)
-    console.log(`Payment ${paymentId} deleted!`);
+    await dao.remove(req.params.id)
+    console.log(`Payment ${req.params.id} deleted!`);
     res.status(200).end();
 };
 

@@ -23,7 +23,7 @@ api.update = async (req, res) => {
   console.log('####################################');
   console.log('Received JSON data', req.body);
 
-  const { simulation } = req.body;
+  const simulation = req.body;
   const dao = new SimulationDao(req.db);
   const simulationDB = await dao.findById(simulation.id);
   if(!simulationDB) {
@@ -57,8 +57,8 @@ api.remove = async (req, res) => {
         return res.status(404).json({ message });
     }
 
-    await dao.remove(simulationId)
-    console.log(`Simulation ${simulationId} deleted!`);
+    await dao.remove(req.params.id)
+    console.log(`Simulation ${req.params.id} deleted!`);
     res.status(200).end();
 };
 

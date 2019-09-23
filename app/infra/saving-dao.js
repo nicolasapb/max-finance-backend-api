@@ -71,9 +71,9 @@ class SavingDao {
     return new Promise((resolve, reject) => {
       this._db.run(`
               UPDATE saving SET            
-                saving_type       = ?       
-                saving_amount     = ?       
-                saving_date       = ?     
+                saving_type       = ?,       
+                saving_amount     = ?,       
+                saving_date       = ?,     
                 saving_simulation = ?     
                 WHERE saving_id = ?;   
           `,

@@ -23,7 +23,7 @@ api.update = async (req, res) => {
   console.log('####################################');
   console.log('Received JSON data', req.body);
 
-  const { saving } = req.body;
+  const saving = req.body;
   const dao = new SavingDao(req.db);
   const savingDB = await dao.findById(saving.id);
   if(!savingDB) {
@@ -57,8 +57,8 @@ api.remove = async (req, res) => {
         return res.status(404).json({ message });
     }
 
-    await dao.remove(savingId)
-    console.log(`Saving ${savingId} deleted!`);
+    await dao.remove(req.params.id)
+    console.log(`Saving ${req.params.id} deleted!`);
     res.status(200).end();
 };
 
