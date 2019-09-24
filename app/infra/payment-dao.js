@@ -36,7 +36,6 @@ class PaymentDao {
               ${limitQuery} ;
               `,
               (err, rows) => {
-                  console.log(rows);
                   const payments = rows.map(paymentConverter)
                   if (err) {
                       console.log(err);
@@ -77,6 +76,8 @@ class PaymentDao {
                 payment.paid ? 1 : 0
               ],
               (err) => {
+                let newPayment = payment;
+                newPayment['id'] = this.lastID;
                   if (err) {
                       console.log(err);
                       return reject('Can`t add payment');

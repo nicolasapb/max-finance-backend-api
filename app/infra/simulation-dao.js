@@ -41,7 +41,6 @@ class SimulationDao {
               ${limitQuery} ;
               `,
         (err, rows) => {
-          console.log(rows);
           const simulations = rows.map(simulationConverter)
           if (err) {
             console.log(err);

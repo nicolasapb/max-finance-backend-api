@@ -29,7 +29,6 @@ class SavingDao {
               ${limitQuery} ;
               `,
         (err, rows) => {
-          console.log(rows);
           const savings = rows.map(savingConverter)
           if (err) {
             console.log(err);
