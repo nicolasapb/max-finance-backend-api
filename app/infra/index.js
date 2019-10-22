@@ -3,7 +3,8 @@ const UserDao = require('./user-dao')
     , SavingDao = require('./saving-dao')
     , SimulationDao = require('./simulation-dao')
     , wrapAsync = require('./async-wrap')
-    , auth = require('./auth');
+    , auth = require('./auth')
+    , ProcurementDao = require('./procurement-dao');
 
 
 module.exports = {
@@ -12,5 +13,6 @@ module.exports = {
     SavingDao,
     SimulationDao,
     wrapAsync,
-    auth
+    auth,
+    ProcurementDao
 };

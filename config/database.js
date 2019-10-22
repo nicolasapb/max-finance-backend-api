@@ -144,6 +144,26 @@ INSERT INTO simulation (
     WHERE NOT EXISTS (SELECT * FROM simulation WHERE simulation_id = '1')
 `;
 
+const PROCUREMENT_SCHEMA = `
+CREATE TABLE IF NOT EXISTS procurement (
+    procurement_id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    procurement_product VARCHAR(50) NOT NULL UNIQUE, 
+    procurement_amount VARCHAR(15) NOT NULL, 
+    procurement_link VARCAHR(255) NOT NULL, 
+    procurement_img VARCAHR(255) NOT NULL
+)
+`;
+
+const INSERT_DEFAULT_PROCUREMENT_1 = 
+`
+INSERT INTO procurement (
+    procurement_product,
+    procurement_amount,
+    procurement_link,
+    procurement_img
+) SELECT 'Móveis Sala', ' 12900.00 ', 'https://bit.ly/2PaFP3s', 'https://bit.ly/2MzbYAm' WHERE NOT EXISTS (SELECT * FROM procurement WHERE procurement_id = '1')
+`;
+
 db.serialize(() => {
     db.run("PRAGMA foreign_keys=ON");
     db.run(USER_SCHEMA);
@@ -155,7 +175,9 @@ db.serialize(() => {
     db.run(INSERT_DEFAULT_SAVING_1);     
     db.run(INSERT_DEFAULT_SAVING_2);     
     db.run(SIMULATION_SCHEMA);        
-    db.run(INSERT_DEFAULT_SIMULATION_1);        
+    db.run(INSERT_DEFAULT_SIMULATION_1);   
+    db.run(PROCUREMENT_SCHEMA);     
+    db.run(INSERT_DEFAULT_PROCUREMENT_1);     
 
     db.each("SELECT * FROM user", (err, user) => {
         console.log('Users');
